@@ -1,6 +1,6 @@
 <div class="card-columns">
     <div class="card" *ngFor="let lanzamiento of nuevosLanzamientos">
-      <img [src]="lanzamiento.images[0].url" class="card-img-top" alt="...">
+      <img [src]="lanzamiento.images | noimage" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">{{lanzamiento.name}}</h5>
         <p class="card-text">

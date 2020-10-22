@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,23 @@ export class SpotifyService {
     console.log('spoti servce listo')
   }
 
-  getNewReleases() {
+  getQuery(query:string){
     const headers = new HttpHeaders({
-      Authorization: 'Bearer BQBtYxFy-Ko7oj7sR1Jkwnlfn6HKdhn9rYqEtZfMc177G2364wN4kxcjBhqeSfi9gIYzty0sRCj3_0siXBJvH5ZcQ7XZn20g2RKqJglzFaJp4xK_LUuQHKQM0xj4hPVA0iAVEysE-Q19cRje'
+      Authorization: 'Bearer BQAdRT_n5EuUvILOQOdlqRIWubtyibOqHXMazMNiGPSXsTNoxv05Uh2xEJt6I-gcgpJMQ7CaK7s0otaFg_Qr_mO28Z410N0XCowXMvJ03ziMummUPf9Hf4qOWnRTdoqiVoMiwIH73IDlOkZ8'
     })
-    return this.http.get('https://api.spotify.com/v1/browse/new-releases', {headers})
+
+    const url = `https://api.spotify.com/v1/${query}`
+    return this.http.get(url, {headers})
+  }
+
+  getNewReleases() {
+    return this.getQuery('browse/new-releases')
+              .pipe(map(data => data['albums'].items))
+  }
+
+  getArtist(termino:string){
+    return this.getQuery(`search?q=${termino}&type=artist`)
+                    .pipe(map(data => data['artists'].items ))
   }
 
 }
