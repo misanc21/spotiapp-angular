@@ -8,7 +8,9 @@ import { Component, Input } from '@angular/core';
 export class TarjetasComponent {
   @Input() items: any = []
 
-  constructor() { }
+  constructor() { 
+
+  }
 
 
 }
