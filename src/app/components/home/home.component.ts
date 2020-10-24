@@ -10,12 +10,16 @@ export class HomeComponent {
 
   nuevosLanzamientos: any[] = []
   loading : boolean = false
+  showError : boolean = false
 
   constructor(private spotify: SpotifyService) { 
     this.loading = true
     this.spotify.getNewReleases().subscribe((data: any)=>{
       this.nuevosLanzamientos = data
       this.loading = false
+    },(error)=>{
+      this.loading = false
+      this.showError = true
     })
   }
 
